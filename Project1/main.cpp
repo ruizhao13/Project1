@@ -64,6 +64,8 @@ void DfsFolder(string path, int layer)
 			//for (int i = 0; i<layer; i++)
 			//	cout << "--";
 			//cout << file_info.name << endl;
+			string filename = file_info.name;
+			string suffixStr = filename.substr(filename.find_last_of('.') + 1);//获取文件后缀
 			NumOfCharsLinesInFile(path + '/' + file_info.name);
 		}
 	} while (!_findnext(handle, &file_info));  //返回0则遍历完  
