@@ -93,10 +93,22 @@ void NumOfCharsLinesInFile(string FileLocation)
 	bool wordbegin = false;
 	string current_word;
 	string last_word;
-	freopen(FileLocation.c_str(), "r", stdin);
-	while (~(current_char = getchar()))
-	{
 
+	size_t sz;
+	FILE * fp = fopen(FileLocation.c_str(), "rb");
+	fseek(fp, 0L, SEEK_END);
+	sz = ftell(fp);
+	rewind(fp);
+	char*buf;
+	buf = (char*)malloc(sz * sizeof(char));
+	int len = fread(buf, sizeof(char), sz, fp);
+	if (len) {
+		NumberLines++;
+	}
+
+	for(int i = 0;i<len;i++)
+	{
+		current_char = buf[i];
 		if (current_char == -1) {
 			break;
 		}
@@ -145,24 +157,22 @@ void NumOfCharsLinesInFile(string FileLocation)
 				//将current_word清空
 			}
 		}
-
-
-
-
 		//判断是否为单词结束
-		NumberChars++;
+		
 		if (current_char == '\n') {
 			NumberLines++;
 		}
 		last_char = current_char;
 	}
 
-	if (NumberChars != 0) {
-		NumberLines++;
-	}
-	TotalNum_chars += NumberChars;
+	
+		
+	
+	TotalNum_chars += len;
 	TotalNum_lines += NumberLines;
 	TotalNum_words += NumberWords;
+	fclose(fp);
+	fp = NULL;
 	//
 }
 
