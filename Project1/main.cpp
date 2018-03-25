@@ -98,6 +98,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 	FILE * fp = fopen(FileLocation.c_str(), "rb");
 	fseek(fp, 0L, SEEK_END);
 	sz = ftell(fp);
+	
 	rewind(fp);
 	char*buf;
 	buf = (char*)malloc(sz * sizeof(char));
