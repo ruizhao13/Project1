@@ -94,9 +94,9 @@ void NumOfCharsLinesInFile(string FileLocation)
 	string current_word;
 	string last_word;
 	freopen(FileLocation.c_str(), "r", stdin);
-	while (~(current_char=getchar()))
+	while (~(current_char = getchar()))
 	{
-		
+
 		if (current_char == -1) {
 			break;
 		}
@@ -156,7 +156,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 		}
 		last_char = current_char;
 	}
-	
+
 	if (NumberChars != 0) {
 		NumberLines++;
 	}
