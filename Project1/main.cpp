@@ -135,6 +135,7 @@ int main(int argc, char *argv[])
 {
 	//递归遍历文件夹  
 	DfsFolder("D:/android-ndk", 0);
+	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
 	cout << "lines: " << TotalNum_lines << endl; 
