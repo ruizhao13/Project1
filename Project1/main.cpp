@@ -15,6 +15,8 @@ struct my_word
 	string sort_word = "zzzzzzzzzzzzzzzzzz";
 	size_t appear_count = 0;
 };
+
+my_word ten_word[11];
 struct my_phrase
 {
 	string sort_phrase = "zzzzzzzzzzzzzzzzzz";
@@ -201,15 +203,44 @@ void DfsFolder(string path, int layer)
 	_findclose(handle);
 }
 
+bool compare(my_word a, my_word b)
+{
+	return a.appear_count>b.appear_count;   //升序排列
+}
+
+void Getten_word() {
+
+	my_word temporary_word;
+	for (const auto &w : word_count)
+	{
+		ten_word[10] = w.second;
+		for (int i = 0; i <= 9; i++)
+		{
+			if (ten_word[i].appear_count < ten_word[i + 1].appear_count)
+			{
+				temporary_word = ten_word[i];
+				ten_word[i] = ten_word[i + 1];
+				ten_word[i + 1] = temporary_word;
+			}
+		}
+	}
+	sort(ten_word, ten_word + 10, compare);
+}
+
 int main(int argc, char *argv[])
 {
 	//递归遍历文件夹  
-	DfsFolder("D:/android-ndk/test", 0);
+	DfsFolder("D:/android-ndk/test.txt", 0);
 	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
-	cout << "lines: " << TotalNum_lines << endl; 
-	
+	cout << "lines: " << TotalNum_lines << endl;
+	Getten_word();
+	for (int i = 0; i < 10; i++)
+	{
+		cout << ten_word[i].sort_word << "  " << ten_word[i].appear_count << endl;
+
+	}
 
 	return 0;
 }
