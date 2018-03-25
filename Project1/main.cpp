@@ -22,6 +22,8 @@ struct my_phrase
 	string sort_phrase = "zzzzzzzzzzzzzzzzzz";
 	size_t appear_count = 0;
 };
+
+my_phrase ten_phrase[11];
 unordered_map<string, my_word>word_count;
 unordered_map<string, my_phrase>phrase_count;
 
@@ -73,9 +75,9 @@ void EnterMap(string last_word, string current_word)
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
 	string raw_phrase = last_word + '_' + current_word;
 	phrase_count[simple_phrase].appear_count++;
-	if (if_update(raw_phrase, phrase_count[simple_current_word].sort_phrase))
+	if (if_update(raw_phrase, phrase_count[simple_phrase].sort_phrase))
 	{
-		phrase_count[simple_current_word].sort_phrase = raw_phrase;
+		phrase_count[simple_phrase].sort_phrase = raw_phrase;
 	}
 }
 
@@ -208,6 +210,12 @@ bool compare(my_word a, my_word b)
 	return a.appear_count>b.appear_count;   //升序排列
 }
 
+bool phrase_compare(my_phrase a, my_phrase b)
+{
+	return a.appear_count>b.appear_count;   //升序排列
+}
+
+
 void Getten_word() {
 
 	my_word temporary_word;
@@ -227,20 +235,46 @@ void Getten_word() {
 	sort(ten_word, ten_word + 10, compare);
 }
 
+void Getten_phrase()
+{
+	my_phrase temporary_phrase;
+	for (const auto &w : phrase_count)
+	{
+		ten_phrase[10] = w.second;
+		for (int i = 0; i <= 9; i++)
+		{
+			if (ten_phrase[i].appear_count < ten_phrase[i + 1].appear_count)
+			{
+				temporary_phrase = ten_phrase[i];
+				ten_phrase[i] = ten_phrase[i + 1];
+				ten_phrase[i + 1] = temporary_phrase;
+			}
+		}
+	}
+	sort(ten_phrase, ten_phrase + 10, phrase_compare);
+}
+
 int main(int argc, char *argv[])
 {
 	//递归遍历文件夹  
-	DfsFolder("D:/android-ndk/test.txt", 0);
+	DfsFolder("D:/android-ndk/test", 0);
 	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
 	cout << "lines: " << TotalNum_lines << endl;
 	Getten_word();
+	cout << "=====================word=====================" << endl;
 	for (int i = 0; i < 10; i++)
 	{
 		cout << ten_word[i].sort_word << "  " << ten_word[i].appear_count << endl;
 
 	}
+	Getten_phrase();
+	cout << "====================phrase===================" << endl;
+	for (int i = 0; i < 10; i++)
+	{
+		cout << ten_phrase[i].sort_phrase << "  " << ten_phrase[i].appear_count << endl;
 
+	}
 	return 0;
 }
