@@ -3,10 +3,80 @@
 #include <fstream>
 #include <io.h>  
 #include<ctype.h>
+#include<map>
+#include <algorithm>
+#include <unordered_map>
 using namespace std;
 long long TotalNum_chars = 0;
 long long TotalNum_lines = 0;
 long long TotalNum_words = 0;
+struct my_word
+{
+	string sort_word = "zzzzzzzzzzzzzzzzzz";
+	size_t appear_count = 0;
+};
+struct my_phrase
+{
+	string sort_phrase = "zzzzzzzzzzzzzzzzzz";
+	size_t appear_count = 0;
+};
+unordered_map<string, my_word>word_count;
+unordered_map<string, my_phrase>phrase_count;
+
+string transform_word(string raw_word)
+{
+	int len = raw_word.length();
+	string simple_word;
+	string temp_word = raw_word;
+	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
+	bool is_start = false;
+	for (int i = len - 1; i >= 0; i--)
+	{
+		if (isalpha(temp_word[i]))
+		{
+			is_start = true;
+			simple_word = temp_word.substr(0, i + 1);
+			break;
+		}
+	}
+	return simple_word;
+}
+
+bool if_update(string new_word, string present_wrod)
+{
+	if (new_word < present_wrod)
+	{
+		return true;
+	}
+	else return false;
+
+}
+
+void EnterMap(string last_word, string current_word)
+{
+	string simple_last_word;
+	string simple_current_word;
+	simple_last_word = transform_word(last_word);
+	simple_current_word = transform_word(current_word);
+	//此处可以优化，减少查找map的次数
+	//
+	word_count[simple_current_word].appear_count++;
+	if (if_update(current_word, word_count[simple_current_word].sort_word))
+	{
+		word_count[simple_current_word].sort_word = current_word;
+	}
+
+
+	//phrase这里有问题，没有考虑最后的输出字典序最小的原型
+	string simple_phrase = simple_last_word + '_' + simple_current_word;
+	string raw_phrase = last_word + '_' + current_word;
+	phrase_count[simple_phrase].appear_count++;
+	if (if_update(raw_phrase, phrase_count[simple_current_word].sort_phrase))
+	{
+		phrase_count[simple_current_word].sort_phrase = raw_phrase;
+	}
+}
+
 void NumOfCharsLinesInFile(string FileLocation)
 {//读入文件，统计字符数、行数、单词数，并加入到全局变量中。并对单词进行处理，加入map字典中。
 	int NumberChars = 0;
@@ -56,7 +126,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 								//说明current_word满足要求
 								//cout << current_word << endl;
 								NumberWords++;
-								//EnterMap(last_word, current_word);
+								EnterMap(last_word, current_word);
 								last_word = current_word;
 								current_word.clear();
 							}
@@ -134,10 +204,12 @@ void DfsFolder(string path, int layer)
 int main(int argc, char *argv[])
 {
 	//递归遍历文件夹  
-	DfsFolder("D:/android-ndk", 0);
+	DfsFolder("D:/android-ndk/test", 0);
 	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
 	cout << "lines: " << TotalNum_lines << endl; 
+	
+
 	return 0;
 }
