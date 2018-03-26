@@ -282,10 +282,11 @@ void Getten_phrase()
 }
 
 int main(int argc, char *argv[])
+//int main()
 {
 	clock_t tStart = clock();
 	//递归遍历文件夹  
-	DfsFolder("C:/newsample", 0);
+	DfsFolder(argv[1], 0);
 	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
