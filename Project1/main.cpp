@@ -47,16 +47,6 @@ string transform_word(string raw_word)
 	return simple_word;
 }
 
-bool if_update(string new_word, string present_wrod)
-{
-	if (new_word < present_wrod)
-	{
-		return true;
-	}
-	else return false;
-
-}
-
 void EnterMap(string last_word, string current_word)
 {
 	string simple_last_word;
