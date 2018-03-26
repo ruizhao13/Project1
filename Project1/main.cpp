@@ -61,8 +61,6 @@ void EnterMap(string last_word, string current_word)
 		word_count[simple_current_word].sort_word = current_word;
 	}
 
-
-	//phrase这里有问题，没有考虑最后的输出字典序最小的原型
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
 	string raw_phrase = last_word + '_' + current_word;
 	phrase_count[simple_phrase].appear_count++;
