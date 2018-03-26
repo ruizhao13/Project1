@@ -66,7 +66,7 @@ void EnterMap(string last_word, string current_word)
 	//此处可以优化，减少查找map的次数
 	//
 	word_count[simple_current_word].appear_count++;
-	if (if_update(current_word, word_count[simple_current_word].sort_word))
+	if (current_word<word_count[simple_current_word].sort_word)
 	{
 		word_count[simple_current_word].sort_word = current_word;
 	}
@@ -76,7 +76,7 @@ void EnterMap(string last_word, string current_word)
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
 	string raw_phrase = last_word + '_' + current_word;
 	phrase_count[simple_phrase].appear_count++;
-	if (if_update(raw_phrase, phrase_count[simple_phrase].sort_phrase))
+	if (raw_phrase< phrase_count[simple_phrase].sort_phrase)
 	{
 		phrase_count[simple_phrase].sort_phrase = raw_phrase;
 	}
