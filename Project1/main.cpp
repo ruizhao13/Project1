@@ -34,7 +34,7 @@ unordered_map<string, my_phrase>phrase_count;
 
 string transform_word(string raw_word)
 {
-	int len = raw_word.length();
+	size_t len = raw_word.length();
 	string simple_word;
 	string temp_word = raw_word;
 	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
@@ -55,8 +55,41 @@ void EnterMap(string last_word, string current_word)
 {
 	string simple_last_word;
 	string simple_current_word;
-	simple_last_word = transform_word(last_word);
-	simple_current_word = transform_word(current_word);
+	//simple_last_word = transform_word(last_word);
+	string raw_word = last_word;
+	size_t len = raw_word.length();
+	string simple_word;
+	string temp_word = raw_word;
+	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
+	bool is_start = false;
+	for (size_t i = len - 1; i >= 0; i--)
+	{
+		if (isalpha(temp_word[i]))
+		{
+			is_start = true;
+			simple_word = temp_word.substr(0, i + 1);
+			break;
+		}
+	}
+	simple_last_word = simple_word;
+
+	//simple_current_word = transform_word(current_word);
+	raw_word = current_word;
+	len = raw_word.length();
+	temp_word = raw_word;
+	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
+	is_start = false;
+	for (size_t i = len - 1; i >= 0; i--)
+	{
+		if (isalpha(temp_word[i]))
+		{
+			is_start = true;
+			simple_word = temp_word.substr(0, i + 1);
+			break;
+		}
+	}
+	simple_current_word = simple_word;
+	//
 	unordered_map<string, my_word> ::iterator got = word_count.find(simple_current_word);
 	if (got == word_count.end())
 	{
@@ -117,6 +150,9 @@ void NumOfCharsLinesInFile(string FileLocation)
 	for(int i = 0;i<len;i++)
 	{
 		current_char = buf[i];
+		if (current_char == '\n') {
+			NumberLines++;
+		}
 		if (current_char < 32 || current_char>126)
 		{
 			current_char = ' ';
@@ -166,9 +202,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 		}
 		//判断是否为单词结束
 		
-		if (current_char == '\n') {
-			NumberLines++;
-		}
+		
 		last_char = current_char;
 	}
 
