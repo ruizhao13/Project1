@@ -1,13 +1,8 @@
-//buf没有free！！！
-
-
 #include <iostream>  
-
 #include <string>  
 #include <fstream>
 #include <io.h>  
 #include<ctype.h>
-#include<map>
 #include <algorithm>
 #include <unordered_map>
 #include <time.h>
@@ -164,7 +159,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 			wordbegin = true;
 			current_word = current_char;
 		}
-		else if (wordbegin)
+		else if (wordbegin)  
 		{
 			if ((isalpha(current_char)) || (isdigit(current_char)))
 			{
@@ -200,9 +195,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 				//将current_word清空
 			}
 		}
-		//判断是否为单词结束
-		
-		
+		//判断是否为单词结束		
 		last_char = current_char;
 	}
 
