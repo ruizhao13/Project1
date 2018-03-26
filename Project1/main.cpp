@@ -173,7 +173,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 		last_char = current_char;
 	}
 
-	
+	free(buf);
 		
 	
 	TotalNum_chars += sz;
