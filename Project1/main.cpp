@@ -57,15 +57,6 @@ void EnterMap(string last_word, string current_word)
 	string simple_current_word;
 	simple_last_word = transform_word(last_word);
 	simple_current_word = transform_word(current_word);
-	//此处可以优化，减少查找map的次数
-	//
-
-	//word_count[simple_current_word].appear_count++;
-	//
-	//if (current_word<word_count[simple_current_word].sort_word)
-	//{
-	//	word_count[simple_current_word].sort_word = current_word;
-	//}
 	unordered_map<string, my_word> ::iterator got = word_count.find(simple_current_word);
 	if (got == word_count.end())
 	{
@@ -96,14 +87,6 @@ void EnterMap(string last_word, string current_word)
 			got_phrase->second.sort_phrase = raw_phrase;
 		} 
 	}
-	//phrase_count[simple_phrase].appear_count++;
-	//
-	//
-	//
-	//if (raw_phrase< phrase_count[simple_phrase].sort_phrase)
-	//{
-	//	phrase_count[simple_phrase].sort_phrase = raw_phrase;
-	//}
 }
 
 
@@ -134,12 +117,10 @@ void NumOfCharsLinesInFile(string FileLocation)
 	for(int i = 0;i<len;i++)
 	{
 		current_char = buf[i];
-		if (current_char == -1) {
-			break;
-		}
-		if (current_char < -1 || current_char>255)
+		if (current_char < 32 || current_char>126)
 		{
 			current_char = ' ';
+			TotalNum_chars--;
 		}
 		//判断是否为单词
 		if ((!isalpha(last_char)) && (!isdigit(last_char)) && (isalpha(current_char)))
@@ -151,7 +132,8 @@ void NumOfCharsLinesInFile(string FileLocation)
 		{
 			if ((isalpha(current_char)) || (isdigit(current_char)))
 			{
-				current_word = current_word + current_char;
+				//current_word.push_back(current_char);
+				current_word.push_back(current_char);
 			}
 			else
 			{
