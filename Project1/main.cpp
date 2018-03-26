@@ -109,7 +109,7 @@ void EnterMap(string last_word, string current_word)
 
 void NumOfCharsLinesInFile(string FileLocation)
 {//读入文件，统计字符数、行数、单词数，并加入到全局变量中。并对单词进行处理，加入map字典中。
-	//int NumberChars = 0;
+	int NumberChars = 0;
 	int NumberLines = 0;
 	int NumberWords = 0;
 	char last_char = ' ';
@@ -117,23 +117,11 @@ void NumOfCharsLinesInFile(string FileLocation)
 	bool wordbegin = false;
 	string current_word;
 	string last_word;
-
-	size_t sz;
-	FILE * fp = fopen(FileLocation.c_str(), "rb");
-	fseek(fp, 0L, SEEK_END);
-	sz = ftell(fp);
-	
-	rewind(fp);
-	char*buf;
-	buf = (char*)malloc(sz * sizeof(char));
-	int len = fread(buf, sizeof(char), sz, fp);
-	if (len) {
-		NumberLines++;
-	}
-
-	for(int i = 0;i<len;i++)
+	ifstream infile;
+	infile.open(FileLocation, ifstream::in);
+	while (infile.good())
 	{
-		current_char = buf[i];
+		current_char = infile.get();
 		if (current_char == -1) {
 			break;
 		}
@@ -182,25 +170,26 @@ void NumOfCharsLinesInFile(string FileLocation)
 				//将current_word清空
 			}
 		}
+
+
+
+
 		//判断是否为单词结束
-		
+		NumberChars++;
 		if (current_char == '\n') {
 			NumberLines++;
 		}
 		last_char = current_char;
 	}
-
-	free(buf);
-		
-	
-	TotalNum_chars += sz;
+	infile.close();
+	if (NumberChars != 0) {
+		NumberLines++;
+	}
+	TotalNum_chars += NumberChars;
 	TotalNum_lines += NumberLines;
 	TotalNum_words += NumberWords;
-	fclose(fp);
-	fp = NULL;
 	//
 }
-
 //深度优先递归遍历当前目录下文件夹和文件及子文件夹和文件  
 void DfsFolder(string path, int layer)
 {
