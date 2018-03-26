@@ -55,10 +55,21 @@ void EnterMap(string last_word, string current_word)
 	simple_current_word = transform_word(current_word);
 	//此处可以优化，减少查找map的次数
 	//
-	word_count[simple_current_word].appear_count++;
-	if (current_word<word_count[simple_current_word].sort_word)
+
+	//word_count[simple_current_word].appear_count++;
+	//
+	//if (current_word<word_count[simple_current_word].sort_word)
+	//{
+	//	word_count[simple_current_word].sort_word = current_word;
+	//}
+
+	if ((word_count.find(simple_current_word)) == word_count.end())
 	{
-		word_count[simple_current_word].sort_word = current_word;
+		word_count.insert({ simple_current_word,{current_word,1} });
+	}
+	else
+	{
+		word_count.find
 	}
 
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
