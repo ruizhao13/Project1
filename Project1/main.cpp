@@ -1,4 +1,8 @@
+//buf√ª”–free£°£°£°
+
+
 #include <iostream>  
+
 #include <string>  
 #include <fstream>
 #include <io.h>  
