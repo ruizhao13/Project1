@@ -49,12 +49,9 @@ string transform_word(string raw_word)
 void EnterMap(string last_word, string current_word)
 {
 	string simple_last_word;
-	string simple_current_word;
-	//simple_last_word = transform_word(last_word);
-	string raw_word = last_word;
-	size_t len = raw_word.length();
-	string simple_word;
-	string temp_word = raw_word;
+	string simple_current_word;	
+	size_t len = last_word.length();
+	string temp_word = last_word;
 	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
 	bool is_start = false;
 	for (size_t i = len - 1; i >= 0; i--)
@@ -62,16 +59,12 @@ void EnterMap(string last_word, string current_word)
 		if (isalpha(temp_word[i]))
 		{
 			is_start = true;
-			simple_word = temp_word.substr(0, i + 1);
+			simple_last_word = temp_word.substr(0, i + 1);
 			break;
 		}
 	}
-	simple_last_word = simple_word;
-
-	//simple_current_word = transform_word(current_word);
-	raw_word = current_word;
-	len = raw_word.length();
-	temp_word = raw_word;
+	len = current_word.length();
+	temp_word = current_word;
 	transform(temp_word.begin(), temp_word.end(), temp_word.begin(), ::tolower);
 	is_start = false;
 	for (size_t i = len - 1; i >= 0; i--)
@@ -79,12 +72,10 @@ void EnterMap(string last_word, string current_word)
 		if (isalpha(temp_word[i]))
 		{
 			is_start = true;
-			simple_word = temp_word.substr(0, i + 1);
+			simple_current_word = temp_word.substr(0, i + 1);
 			break;
 		}
 	}
-	simple_current_word = simple_word;
-	//
 	unordered_map<string, my_word> ::iterator got = word_count.find(simple_current_word);
 	if (got == word_count.end())
 	{
@@ -170,7 +161,7 @@ void NumOfCharsLinesInFile(string FileLocation)
 			{
 				wordbegin = false;
 				//判断现在的current_word是否满足word的要求：前四个字符都是字母
-				if (isalpha(current_word[0])&& isalpha(current_word[1]) && isalpha(current_word[2]) && isalpha(current_word[3]))
+				if (isalpha(current_word[1]) && isalpha(current_word[2]) && isalpha(current_word[3]))
 				{
 					
 					//说明current_word满足要求
@@ -294,7 +285,7 @@ int main(int argc, char *argv[])
 {
 	clock_t tStart = clock();
 	//递归遍历文件夹  
-	DfsFolder("D:/newsample", 0);
+	DfsFolder("C:/newsample", 0);
 	//递归遍历文件夹结束
 	cout << "characters: " << TotalNum_chars << endl;
 	cout << "words: " << TotalNum_words << endl;
