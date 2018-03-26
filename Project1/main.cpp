@@ -66,14 +66,18 @@ void EnterMap(string last_word, string current_word)
 	//{
 	//	word_count[simple_current_word].sort_word = current_word;
 	//}
-
-	if ((word_count.find(simple_current_word)) == word_count.end())
+	unordered_map<string, my_word> ::iterator got = word_count.find(simple_current_word);
+	if (got == word_count.end())
 	{
 		word_count.insert({ simple_current_word,{current_word,1} });
 	}
 	else
 	{
-		word_count.find
+		got->second.appear_count++;
+		if (current_word<got->second.sort_word)
+			{
+				got->second.sort_word = current_word;
+			}
 	}
 
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
