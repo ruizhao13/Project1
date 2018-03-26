@@ -82,11 +82,28 @@ void EnterMap(string last_word, string current_word)
 
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
 	string raw_phrase = last_word + '_' + current_word;
-	phrase_count[simple_phrase].appear_count++;
-	if (raw_phrase< phrase_count[simple_phrase].sort_phrase)
+
+	unordered_map<string, my_phrase> ::iterator got_phrase = phrase_count.find(simple_phrase);
+	if (got_phrase == phrase_count.end())
 	{
-		phrase_count[simple_phrase].sort_phrase = raw_phrase;
+		phrase_count.insert({ simple_phrase,{raw_phrase,1} });
 	}
+	else
+	{
+		got_phrase->second.appear_count++;
+		if (raw_phrase < got_phrase->second.sort_phrase)
+		{
+			got_phrase->second.sort_phrase = raw_phrase;
+		} 
+	}
+	//phrase_count[simple_phrase].appear_count++;
+	//
+	//
+	//
+	//if (raw_phrase< phrase_count[simple_phrase].sort_phrase)
+	//{
+	//	phrase_count[simple_phrase].sort_phrase = raw_phrase;
+	//}
 }
 
 
