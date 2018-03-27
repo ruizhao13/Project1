@@ -112,7 +112,7 @@ void EnterMap(string last_word, string current_word)
 void NumOfCharsLinesInFile(string FileLocation)
 {//读入文件，统计字符数、行数、单词数，并加入到全局变量中。并对单词进行处理，加入map字典中。
 	//int NumberChars = 0;
-	int NumberLines = 0;
+	int NumberLines = 1;
 	int NumberWords = 0;
 	char last_char = ' ';
 	char current_char;
@@ -129,9 +129,9 @@ void NumOfCharsLinesInFile(string FileLocation)
 	char*buf;
 	buf = (char*)malloc(sz * sizeof(char));
 	int len = fread(buf, sizeof(char), sz, fp);
-	if (len) {
-		NumberLines++;
-	}
+	//if (len) {
+	//	NumberLines++;
+	//}
 
 	for(int i = 0;i<len;i++)
 	{
