@@ -93,19 +93,7 @@ void EnterMap(string last_word, string current_word)
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
 	//string raw_phrase = last_word + '_' + current_word;
 	phrase_count[simple_phrase]++;
-	//unordered_map<string, my_phrase> ::iterator got_phrase = phrase_count.find(simple_phrase);
-	//if (got_phrase == phrase_count.end())
-	//{
-	//	phrase_count.insert({ simple_phrase,{raw_phrase,1} });
-	//}
-	//else
-	//{
-	//	got_phrase->second.appear_count++;
-	//	if (raw_phrase < got_phrase->second.sort_phrase)
-	//	{
-	//		got_phrase->second.sort_phrase = raw_phrase;
-	//	} 
-	//}
+	
 }
 
 
@@ -292,22 +280,32 @@ int main(int argc, char *argv[])
 	//递归遍历文件夹  
 	DfsFolder("D:/newsample", 0);
 	//递归遍历文件夹结束
-	cout << "characters: " << TotalNum_chars << endl;
-	cout << "words: " << TotalNum_words << endl;
-	cout << "lines: " << TotalNum_lines << endl;
+	cout << "char_number :" << TotalNum_chars << endl;
+	cout << "line_number :" << TotalNum_lines << endl; 
+	cout << "word_number :" << TotalNum_words << endl;
 	Getten_word();
-	cout << "=====================word=====================" << endl;
+	cout <<endl<< "the top ten frequency of word : " << endl;
 	for (int i = 0; i < 10; i++)
 	{
 		cout << ten_word[i].sort_word << "  " << ten_word[i].appear_count << endl;
-
+		
 	}
 	Getten_phrase();
-	cout << "====================phrase===================" << endl;
+	cout <<"\n\n"<< "the top ten frequency of phrase :" << endl;
 	for (int i = 0; i < 10; i++)
 	{
-		cout << ten_phrase[i].sort_phrase << "  " << ten_phrase[i].appear_count << endl;
-
+		string phrase_now = ten_phrase[i].sort_phrase;
+		string temp1, temp2;
+		int x = phrase_now.length();
+		int k;
+		for (k = 0; k < x; k++) {
+			if (phrase_now[k] == '_')break;
+			
+		}
+		temp1 = phrase_now.substr(0, k);
+		temp2 = phrase_now.substr(k + 1, x - k - 1);
+		string xx = phrase_now.substr(0, k);
+		cout << word_count[phrase_now.substr(0, k)].sort_word << ' ' << word_count[phrase_now.substr(k + 1, x - k - 1)].sort_word <<" "<< ten_phrase[i].appear_count << endl;
 	}
 	printf("Time taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
 	return 0;
