@@ -156,10 +156,13 @@ void NumOfCharsLinesInFile(string FileLocation)
 			{
 				//current_word.push_back(current_char);
 				current_word.push_back(current_char);
+				if (i == len-1) {
+					goto panduan;
+				}
 			}
 			else
 			{
-				wordbegin = false;
+panduan:				wordbegin = false;
 				//判断现在的current_word是否满足word的要求：前四个字符都是字母
 				if (isalpha(current_word[1]) && isalpha(current_word[2]) && isalpha(current_word[3]))
 				{
@@ -167,15 +170,15 @@ void NumOfCharsLinesInFile(string FileLocation)
 					//说明current_word满足要求
 					NumberWords++;
 					EnterMap(last_word, current_word);
-					last_word = current_word;
-					current_word.clear();
+					last_word = current_word;  //如果满足word要求，则将NumberWords++，并处理该word，并last_word=current_word
+					current_word.clear();   //将current_word清空
 					
 				}
 
-				//如果满足word要求，则将NumberWords++，并处理该word，并last_word=current_word
+				
 
 
-				//将current_word清空
+				
 			}
 		}
 		//判断是否为单词结束		
