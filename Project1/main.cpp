@@ -25,7 +25,7 @@ struct my_phrase
 
 my_phrase ten_phrase[11];
 unordered_map<string, my_word>word_count;
-unordered_map<string, my_phrase>phrase_count;
+unordered_map<string, size_t>phrase_count;
 
 string transform_word(string raw_word)
 {
@@ -91,21 +91,21 @@ void EnterMap(string last_word, string current_word)
 	}
 
 	string simple_phrase = simple_last_word + '_' + simple_current_word;
-	string raw_phrase = last_word + '_' + current_word;
-
-	unordered_map<string, my_phrase> ::iterator got_phrase = phrase_count.find(simple_phrase);
-	if (got_phrase == phrase_count.end())
-	{
-		phrase_count.insert({ simple_phrase,{raw_phrase,1} });
-	}
-	else
-	{
-		got_phrase->second.appear_count++;
-		if (raw_phrase < got_phrase->second.sort_phrase)
-		{
-			got_phrase->second.sort_phrase = raw_phrase;
-		} 
-	}
+	//string raw_phrase = last_word + '_' + current_word;
+	phrase_count[simple_phrase]++;
+	//unordered_map<string, my_phrase> ::iterator got_phrase = phrase_count.find(simple_phrase);
+	//if (got_phrase == phrase_count.end())
+	//{
+	//	phrase_count.insert({ simple_phrase,{raw_phrase,1} });
+	//}
+	//else
+	//{
+	//	got_phrase->second.appear_count++;
+	//	if (raw_phrase < got_phrase->second.sort_phrase)
+	//	{
+	//		got_phrase->second.sort_phrase = raw_phrase;
+	//	} 
+	//}
 }
 
 
@@ -270,7 +270,8 @@ void Getten_phrase()
 	my_phrase temporary_phrase;
 	for (const auto &w : phrase_count)
 	{
-		ten_phrase[10] = w.second;
+		ten_phrase[10].appear_count = w.second;
+		ten_phrase[10].sort_phrase = w.first;
 		for (int i = 0; i <= 9; i++)
 		{
 			if (ten_phrase[i].appear_count < ten_phrase[i + 1].appear_count)
