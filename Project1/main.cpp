@@ -176,7 +176,7 @@ panduan:				wordbegin = false;
 	fp = NULL;
 }
   
-void DfsFolder(string path, int layer)
+int DfsFolder(string path, int layer)
 {
 	_finddata_t file_info;
 	string current_path = path + "/*.*"; 
@@ -184,7 +184,7 @@ void DfsFolder(string path, int layer)
 	if (-1 == handle)
 	{
 		cout << "cannot match the path" << endl;
-		return;
+		return 1;
 	}
 
 	do
@@ -206,6 +206,7 @@ void DfsFolder(string path, int layer)
 		}
 	} while (!_findnext(handle, &file_info));  //ended if return 0  
 	_findclose(handle);
+	return 0;
 }
 
 bool compare(my_word a, my_word b)
@@ -261,7 +262,11 @@ void Getten_phrase()
 int main(int argc, char *argv[])
 {
 	clock_t tStart = clock();  
-	DfsFolder(argv[1], 0);
+	int state = DfsFolder(argv[1], 0);
+	if (state)
+	{
+		return 0;
+	}
 	cout << "char_number :" << TotalNum_chars << endl;
 	cout << "line_number :" << TotalNum_lines << endl; 
 	cout << "word_number :" << TotalNum_words << endl;
