@@ -262,7 +262,7 @@ void Getten_phrase()
 int main(int argc, char *argv[])
 {
 	clock_t tStart = clock();  
-	int state = DfsFolder(argv[1], 0);
+	int state = DfsFolder("C:/newsample", 0);
 	if (state)
 	{
 		return 0;
@@ -284,11 +284,8 @@ int main(int argc, char *argv[])
 		string phrase_now = ten_phrase[i].sort_phrase;
 		string temp1, temp2;
 		int x = phrase_now.length();
-		int k;
-		for (k = 0; k < x; k++) {
-			if (phrase_now[k] == '_')break;
-			
-		}
+		int k = phrase_now.find("_");
+		
 		temp1 = phrase_now.substr(0, k);
 		temp2 = phrase_now.substr(k + 1, x - k - 1);
 		string xx = phrase_now.substr(0, k);
