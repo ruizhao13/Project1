@@ -116,9 +116,6 @@ void NumOfCharsLinesInFile(string FileLocation)
 	char*buf;
 	buf = (char*)malloc(sz * sizeof(char));
 	int len = fread(buf, sizeof(char), sz, fp);
-	//if (len) {
-	//	NumberLines++;
-	//}
 
 	for(int i = 0;i<len;i++)
 	{
@@ -284,10 +281,7 @@ int main(int argc, char *argv[])
 		string phrase_now = ten_phrase[i].sort_phrase;
 		string temp1, temp2;
 		int x = phrase_now.length();
-		int k = phrase_now.find("_");
-		
-		temp1 = phrase_now.substr(0, k);
-		temp2 = phrase_now.substr(k + 1, x - k - 1);
+		int k = phrase_now.find("_");		
 		string xx = phrase_now.substr(0, k);
 		cout << word_count[phrase_now.substr(0, k)].sort_word << ' ' << word_count[phrase_now.substr(k + 1, x - k - 1)].sort_word <<" "<< ten_phrase[i].appear_count << endl;
 	}
